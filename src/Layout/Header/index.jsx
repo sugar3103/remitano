@@ -53,6 +53,7 @@ function Header(props) {
               type="email"
               name="username"
               className="rounded-md border-2 mr-1 p-1"
+              required
               onChange={(e) =>
                 setLoginData((init) => ({ ...init, email: e.target.value }))
               }
@@ -62,6 +63,7 @@ function Header(props) {
               name="password"
               className="rounded-md border-2 mr-2 p-1"
               minLength={8}
+              required
               onChange={(e) =>
                 setLoginData((init) => ({ ...init, password: e.target.value }))
               }

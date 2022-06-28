@@ -19,7 +19,11 @@ function Layout(props) {
       <div className="flex justify-center">
         <div className="w-full md:w-[1024px]">
           <Header loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
-          <MainRoute />
+          <div className="flex justify-center">
+            <div className="w-full md:w-[640px]">
+              <MainRoute loginInfo={loginInfo} />
+            </div>
+          </div>
         </div>
       </div>
     </section>
