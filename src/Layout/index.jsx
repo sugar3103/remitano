@@ -19,10 +19,13 @@ function Layout(props) {
       <div className="flex justify-center">
         <div className="w-full md:w-[1024px]">
           <Header loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
-          <div className="flex justify-center">
-            <div className="w-full md:w-[640px]">
+          <div className="flex justify-center pb-16">
+            <div className="w-full md:w-[768px]">
               <MainRoute loginInfo={loginInfo} />
             </div>
+          </div>
+          <div className="fixed bottom-0 left-0 py-4 bg-sky-500 w-full flex justify-center">
+            <h2 className="font-bold text-white">Made by Duong Phan</h2>
           </div>
         </div>
       </div>

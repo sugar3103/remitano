@@ -10,8 +10,30 @@ function SharePage(props) {
 
   function shareTheLink(e) {
     e.preventDefault();
-    console.log("share the link", shareLink);
-    navigate("/");
+    if (!shareLink.includes("youtube.com")) {
+      alert("Must be a Youtube link");
+    } else {
+      const getVideoList = localStorage.getItem("videoList");
+      const videoList = getVideoList ? JSON.parse(getVideoList) : [];
+
+      const youtubeLink = `https://noembed.com/embed?url=${shareLink}`;
+
+      fetch(youtubeLink)
+        .then((response) => response.json())
+        .then((result) => {
+          const videoId = shareLink.split("v=")[1];
+          const existedVideo = videoList.find((e) => e.videoId === videoId);
+          if (result?.error) {
+            alert("Video is not existed in Youtube / video ID not correct");
+          } else if (!existedVideo) {
+            const newVideoList = [...videoList, { videoId, ...result }];
+            const stringNewVideoList = JSON.stringify(newVideoList);
+            localStorage.setItem("videoList", stringNewVideoList);
+            navigate("/");
+          } else alert("Video existed in the list");
+        })
+        .catch((error) => alert("can't get video information", error));
+    }
   }
 
   return (
@@ -25,7 +47,7 @@ function SharePage(props) {
             <div className="">
               <label>Youtube URL : </label>
               <input
-                type={"text"}
+                type={"url"}
                 required
                 className="border-2 w-9/12 px-1"
                 onChange={(e) => setShareLink(e.target.value)}
@@ -41,7 +63,9 @@ function SharePage(props) {
           </form>
         </div>
       ) : (
-        <div>Please Login to share a Youtube link</div>
+        <div className="font-bold text-lg w-full flex justify-center">
+          Please Login to share a Youtube link
+        </div>
       )}
     </div>
   );
